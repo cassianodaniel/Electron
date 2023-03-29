@@ -27,8 +27,6 @@ function createWindow() {
   });
 }
 
-
-
 ipc.on('async-message', function (event, arg) {
   event.sender.send('async-message-reply', 'Main process async reply.');
 })
@@ -51,3 +49,4 @@ app.on('activate', () => {
     createWindow();
   }
 });
+

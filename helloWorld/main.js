@@ -2,38 +2,30 @@ const electron = require("electron");
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 //const {app, BrowserWindow} = require('electron')
-const path = require('path')
-const url = require('url')
-
+const path = require("path");
+const url = require("url");
 
 let win;
 
-function createWindow () {
+function createWindow() {
+  win = new BrowserWindow({ width: 1200, height: 1300, show: false });
 
-  win = new BrowserWindow({width: 800, height: 600})
+  win.loadURL("http://staging.apmhelp.co/");
 
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
-
-
-  win.on('closed', () => {
-    win = null
+  win.once("ready-to-show", () => {
+    win.show();
   });
 }
 
-app.on('ready', createWindow);
+app.on("ready", createWindow);
 
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (win === null) {
     createWindow();
   }
